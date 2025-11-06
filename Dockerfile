@@ -1,18 +1,19 @@
 FROM python:3.11-slim
 
-# تثبيت Xvfb ومكتبات النظام المطلوبة
+# تثبيت الأدوات المطلوبة
 RUN apt-get update && apt-get install -y \
     xvfb \
     x11-utils \
     x11-apps \
     python3-tk \
     python3-dev \
+    gnome-screenshot \
     && rm -rf /var/lib/apt/lists/*
 
-# تثبيت مكتبات Python المطلوبة
-RUN pip install pyautogui pillow
+# تثبيت المكتبات
+RUN pip install --upgrade pip && pip install "pillow>=9.2.0" pyautogui
 
-# إنشاء مجلد العمل
+# مجلد العمل
 WORKDIR /app
 COPY . .
 
